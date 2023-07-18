@@ -13,13 +13,18 @@ document.getElementById("breed").innerHTML = `
         ${Object.keys(breedList).map(function (breed) {
             return `<option>${breed}</option>`
         }).join("")};
-    </select>
-`;
+    </select>`;
 }
 
 async function loadByBreed(breed) {
     if (breed != "Choose a dog breed") {
         const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`);
         const data = await response.json();
+        createSlide(data.message);
     }
+}
+
+function createSlide(images) {
+    document.querySelector("div.show").innerHTML = `
+    <div class="slide" style="background-image: url('${images[0]}')"></div>`;
 }
